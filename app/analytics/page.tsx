@@ -1,28 +1,16 @@
+'use client'
+
 import { Card } from "@/components/ui/card"
 import { Code2, GitBranch, Trophy, Target, TrendingUp, Award } from "lucide-react"
 import { Progress } from "@/components/ui/progress"
+import { useCallback } from "react"
+import { LeetcodeQuery } from "@/utils/leetcodeQuery"
+import { useFetch } from "@/hooks/useFetch"
+import SolvedProblemsStats from "@/components/leetcode/SolvedProblemsStats"
+import ProblemStatsChart from "@/components/geeksforgeeks/ProblemsStats"
+import HackerRankStats from "@/components/hackerrank/Stats"
+import { fetchAllStats } from "@/services/queries"
 
-const codingStats = {
-  totalProblems: 450,
-  easy: 180,
-  medium: 220,
-  hard: 50,
-  platforms: [
-    { name: "LeetCode", solved: 200, total: 3000 },
-    { name: "HackerRank", solved: 150, total: 1500 },
-    { name: "CodeChef", solved: 100, total: 2000 },
-  ],
-}
-
-const dsaSkills = [
-  { name: "Arrays & Strings", problems: 120, proficiency: 90 },
-  { name: "Dynamic Programming", problems: 65, proficiency: 75 },
-  { name: "Trees & Graphs", problems: 85, proficiency: 80 },
-  { name: "Linked Lists", problems: 45, proficiency: 85 },
-  { name: "Sorting & Searching", problems: 55, proficiency: 88 },
-  { name: "Hash Tables", problems: 40, proficiency: 82 },
-  { name: "Recursion & Backtracking", problems: 40, proficiency: 70 },
-]
 
 const githubStats = {
   totalRepos: 25,
@@ -63,6 +51,22 @@ const achievements = [
 ]
 
 export default function AnalyticsPage() {
+  const fetchStats = useCallback(() => fetchAllStats(), []);
+  const { data, error, loading } = useFetch(fetchStats);
+  console.log('Fetched stats:', { data, error, loading });
+
+  const codingStats = {
+  totalProblems: data?.totalSolved?.total || 0,
+  easy: 180,
+  medium: 220,
+  hard: 50,
+  platforms: [
+    { name: "LeetCode", solved: data?.totalSolved?.leetcode, total: 3000 },
+    { name: "HackerRank", solved: data?.totalSolved?.hackerrank, total: 1500 },
+    { name: "GeeksforGeeks", solved: data?.totalSolved?.gfg, total: 2000 },
+  ],
+}
+  
   return (
     <div className="min-h-screen px-6 py-12 lg:px-12 lg:py-20">
       <div className="max-w-6xl mx-auto">
@@ -74,70 +78,33 @@ export default function AnalyticsPage() {
           </p>
         </div>
 
-        {/* Coding Stats Overview */}
         <section className="mb-12">
-          <h2 className="text-3xl font-bold mb-8">Coding Statistics</h2>
-          <div className="grid md:grid-cols-4 gap-4 mb-8">
-            <Card className="p-6 bg-card border-border">
-              <div className="text-3xl font-bold text-primary mb-2">{codingStats.totalProblems}</div>
-              <div className="text-sm text-muted-foreground">Total Problems Solved</div>
-            </Card>
-            <Card className="p-6 bg-card border-border">
-              <div className="text-3xl font-bold text-green-500 mb-2">{codingStats.easy}</div>
-              <div className="text-sm text-muted-foreground">Easy Problems</div>
-            </Card>
-            <Card className="p-6 bg-card border-border">
-              <div className="text-3xl font-bold text-yellow-500 mb-2">{codingStats.medium}</div>
-              <div className="text-sm text-muted-foreground">Medium Problems</div>
-            </Card>
-            <Card className="p-6 bg-card border-border">
-              <div className="text-3xl font-bold text-red-500 mb-2">{codingStats.hard}</div>
-              <div className="text-sm text-muted-foreground">Hard Problems</div>
-            </Card>
-          </div>
+  <h2 className="text-3xl font-bold mb-8">Coding Stats</h2>
+  <div className="grid md:grid-cols-4 gap-6 mb-8">
+    <Card className="p-6 bg-card border-border">
+      <div className="text-3xl font-bold text-primary mb-2">{codingStats.totalProblems}</div>
+      <div className="text-sm text-muted-foreground">Total Problems Solved</div>
+    </Card>
 
-          {/* Platform Stats */}
-          <div className="grid md:grid-cols-3 gap-6">
-            {codingStats.platforms.map((platform, index) => (
-              <Card key={index} className="p-6 bg-card border-border">
-                <h3 className="text-lg font-semibold mb-4">{platform.name}</h3>
-                <div className="mb-2">
-                  <div className="flex justify-between text-sm mb-2">
-                    <span className="text-muted-foreground">Progress</span>
-                    <span className="font-medium">
-                      {platform.solved} / {platform.total}
-                    </span>
-                  </div>
-                  <Progress value={(platform.solved / platform.total) * 100} className="h-2" />
-                </div>
-                <p className="text-xs text-muted-foreground mt-2">
-                  {((platform.solved / platform.total) * 100).toFixed(1)}% completed
-                </p>
-              </Card>
-            ))}
-          </div>
-        </section>
+    {codingStats.platforms.map((platform, idx) => (
+      <Card key={idx} className="p-6 bg-card border-border">
+        <h3 className="text-lg font-semibold mb-2">{platform.name}</h3>
+        <Progress value={(platform.solved / platform.total) * 100} className="h-2 mb-2"/>
+        <p className="text-sm text-muted-foreground">
+          {platform.solved} / {platform.total} solved
+        </p>
+      </Card>
+    ))}
+  </div>
 
-        {/* DSA Skills */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-bold mb-8">Data Structures & Algorithms</h2>
-          <Card className="p-8 bg-card border-border">
-            <div className="space-y-6">
-              {dsaSkills.map((skill, index) => (
-                <div key={index}>
-                  <div className="flex justify-between items-center mb-2">
-                    <div>
-                      <h3 className="font-semibold">{skill.name}</h3>
-                      <p className="text-sm text-muted-foreground">{skill.problems} problems solved</p>
-                    </div>
-                    <span className="text-sm font-medium text-primary">{skill.proficiency}%</span>
-                  </div>
-                  <Progress value={skill.proficiency} className="h-2" />
-                </div>
-              ))}
-            </div>
-          </Card>
-        </section>
+  <div className="grid md:grid-cols-3 gap-6">
+    <SolvedProblemsStats userName="kbpramod7"/>
+    <ProblemStatsChart />
+    <HackerRankStats />
+  </div>
+</section>
+
+
 
         {/* GitHub Stats */}
         <section className="mb-12">
