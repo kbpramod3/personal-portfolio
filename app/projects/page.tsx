@@ -1,73 +1,20 @@
+'use client'
+
+import { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github } from "lucide-react"
 import Link from "next/link"
-
-const projects = [
-  {
-    title: "Portfolio Manager",
-    description: "Full-stack stock portfolio tracker with live market data integration and intelligent caching system.",
-    longDescription:
-      "Built a comprehensive investment dashboard with real-time market data. Optimized backend performance by implementing caching and in-memory maps, reducing redundant database and API calls by 60%. Features market-aware data fetching with cached fallbacks outside trading hours.",
-    tech: ["Next.js", "Node.js", "TypeScript", "TailwindCSS", "AWS RDS", "Vercel"],
-    github: "https://github.com/kbpramod",
-    live: "#",
-    featured: true,
-  },
-  {
-    title: "AI Product Advisor",
-    description:
-      "Intelligent mobile app that provides AI-powered product recommendations using natural language queries.",
-    longDescription:
-      "Developed a React Native mobile application that accepts natural language queries and returns AI-powered product recommendations. Integrated Google Gemini 1.5 Flash with strict JSON-schema prompts and offline fallback ranking. Implemented robust error handling and secure token flow.",
-    tech: ["React Native", "Expo", "Google Gemini AI", "JavaScript"],
-    github: "https://github.com/kbpramod",
-    live: "#",
-    featured: true,
-  },
-  {
-    title: "Media Platform",
-    description: "Secure media microservice with streaming capabilities, JWT authentication, and analytics tracking.",
-    longDescription:
-      "Built a robust backend for media upload, streaming, and analytics. Implemented JWT-based authentication with 10-minute secure streaming URLs and token blacklisting in Redis. Designed comprehensive analytics system tracking views, unique IPs, and per-day statistics with Redis caching.",
-    tech: ["Node.js", "Express", "Prisma", "MySQL", "Redis", "Docker"],
-    github: "https://github.com/kbpramod",
-    live: "#",
-    featured: true,
-  },
-  {
-    title: "Paatashalacloud",
-    description: "School management app used by 80+ schools with optimized gallery module and file management.",
-    longDescription:
-      "Refactored gallery module by replacing base64 media with file storage, significantly improving load speed and media quality. Implemented pagination and UI enhancements. Integrated IIS for centralized file access across mobile and web platforms, scaling upload capacity from 5 to 50+ files per session.",
-    tech: ["React", "Node.js", "IIS", "SQL Server"],
-    github: "#",
-    live: "#",
-    featured: false,
-  },
-  {
-    title: "BDS Dental E-Commerce",
-    description: "Scalable e-commerce platform for dental products with automated inventory management.",
-    longDescription:
-      "Built the platform from scratch in a team of 4, contributing to scalable architecture and project structure. Used React Context to minimize API calls and enhance state management. Automated inventory branch selection via Digipin post office data. Developed dynamic promotions module with rate limiting and validation.",
-    tech: ["React", "Node.js", "Express", "MongoDB"],
-    github: "#",
-    live: "#",
-    featured: false,
-  },
-  {
-    title: "Clove54",
-    description: "Doctor appointment mobile app with user authentication and appointment management.",
-    longDescription:
-      "Developed full-stack mobile application using MERN stack and Expo React Native. Built comprehensive user authentication system for both doctors and patients, with dedicated dashboards. Implemented REST APIs for appointment scheduling and medical report management. Applied clean architecture design with modular Express backend.",
-    tech: ["React Native", "MongoDB", "Express", "Node.js", "Expo"],
-    github: "https://github.com/kbpramod",
-    live: "#",
-    featured: false,
-  },
-]
+import projects from "@/data/projects"
 
 export default function ProjectsPage() {
+
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+const toggleExpand = (index: number) => {
+  setExpandedIndex(expandedIndex === index ? null : index);
+};
+
   const featuredProjects = projects.filter((p) => p.featured)
   const otherProjects = projects.filter((p) => !p.featured)
 
@@ -92,7 +39,28 @@ export default function ProjectsPage() {
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
                   <div className="flex-1">
                     <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
-                    <p className="text-muted-foreground mb-4 leading-relaxed">{project.longDescription}</p>
+                    <p className="text-muted-foreground mb-4 leading-relaxed">
+  {expandedIndex === index ? project.longDescription : project.description}
+
+
+{expandedIndex !== index && (
+  <Button variant="link" size="sm" onClick={() => toggleExpand(index)}>
+    View More
+  </Button>
+)}</p>
+
+{expandedIndex === index && (
+  <div className="mt-2">
+    {project.bullets?.map((point, i) => (
+      <li key={i} className="text-muted-foreground ml-4 list-disc">
+        {point}
+      </li>
+    ))}
+    <Button variant="link" size="sm" onClick={() => toggleExpand(index)}>
+      View Less
+    </Button>
+  </div>
+)}
                     <div className="flex flex-wrap gap-2 mb-6">
                       {project.tech.map((tech, i) => (
                         <span key={i} className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">
@@ -171,7 +139,7 @@ export default function ProjectsPage() {
               Check out my GitHub for more projects and open-source contributions.
             </p>
             <Button asChild size="lg">
-              <Link href="https://github.com/kbpramod" target="_blank" rel="noopener noreferrer">
+              <Link href="https://github.com/kbpramod3" target="_blank" rel="noopener noreferrer">
                 <Github className="w-4 h-4 mr-2" />
                 Visit GitHub
               </Link>

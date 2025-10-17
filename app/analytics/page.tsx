@@ -11,7 +11,6 @@ import ProblemStatsChart from "@/components/geeksforgeeks/ProblemsStats"
 import HackerRankStats from "@/components/hackerrank/Stats"
 import { fetchAllStats } from "@/services/queries"
 
-
 const githubStats = {
   totalRepos: 25,
   publicRepos: 20,

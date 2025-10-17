@@ -14,7 +14,7 @@ const navItems = [
 ]
 
 const socialLinks = [
-  { href: "https://github.com/kbpramod", icon: Github, label: "GitHub" },
+  { href: "https://github.com/kbpramod3", icon: Github, label: "GitHub" },
   { href: "https://linkedin.com/in/kbpramod", icon: Linkedin, label: "LinkedIn" },
   { href: "mailto:kbpramod7@gmail.com", icon: Mail, label: "Email" },
 ]

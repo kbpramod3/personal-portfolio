@@ -11,7 +11,6 @@ export const metadata: Metadata = {
   title: "K B Pramod | Full-Stack Developer",
   description:
     "Full-stack developer with 1+ years of experience building secure, high-performance web and mobile apps using MERN stack and React Native.",
-  generator: "v0.app",
 }
 
 export default function RootLayout({

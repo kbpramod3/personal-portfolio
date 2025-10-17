@@ -2,30 +2,30 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ArrowRight, Mail, MapPin, Phone, ExternalLink, Github } from "lucide-react"
 import Link from "next/link"
+import { personalInfo } from "@/data/home"
 
 export default function HomePage() {
   return (
     <div className="min-h-screen">
       <section className="px-6 py-20 lg:px-12 lg:py-32">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl lg:text-7xl font-bold mb-4 text-balance">K B Pramod</h1>
-          <p className="text-xl lg:text-2xl text-primary font-medium mb-6">Full-Stack Developer</p>
+          <h1 className="text-5xl lg:text-7xl font-bold mb-4 text-balance">{personalInfo.name}</h1>
+          <p className="text-xl lg:text-2xl text-primary font-medium mb-6">{personalInfo.title}</p>
           <p className="text-lg text-muted-foreground mb-8 leading-relaxed text-pretty max-w-2xl mx-auto">
-            Building secure, high-performance web and mobile applications with 1+ years of experience in MERN stack and
-            React Native. Specialized in creating production-ready solutions that serve real users across 80+ schools.
+            {personalInfo.description}
           </p>
           <div className="flex flex-wrap gap-3 justify-center items-center text-sm text-muted-foreground mb-8">
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4" />
-              Bengaluru, India
+              {personalInfo.location}
             </div>
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4" />
-              +91-7795773988
+              {personalInfo.phone}
             </div>
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4" />
-              kbpramod7@gmail.com
+              {personalInfo.email}
             </div>
           </div>
           <Button asChild size="lg">
@@ -95,7 +95,7 @@ export default function HomePage() {
               </div>
               <div className="flex gap-3">
                 <a
-                  href="https://github.com/kbpramod"
+                  href="https://github.com/kbpramod3"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
@@ -125,7 +125,7 @@ export default function HomePage() {
               </div>
               <div className="flex gap-3">
                 <a
-                  href="https://github.com/kbpramod"
+                  href="https://github.com/kbpramod3"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
@@ -148,7 +148,7 @@ export default function HomePage() {
               </div>
               <div className="flex gap-3">
                 <a
-                  href="https://github.com/kbpramod"
+                  href="https://github.com/kbpramod3"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"

@@ -2,94 +2,7 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Mail, Phone, MapPin, Linkedin, Github, ExternalLink, Award } from "lucide-react"
 import Link from "next/link"
-
-const experience = [
-  {
-    company: "Softserve Global",
-    role: "Software Engineer",
-    location: "Bengaluru",
-    period: "Feb 2025 – Present",
-    projects: [
-      {
-        name: "Paatashalacloud – School Management App",
-        achievements: [
-          "Refactored gallery module by replacing base64 media with file storage (wwwroot + GUIDs), improving load speed and media quality",
-          "Implemented pagination and UI enhancements, optimizing responsiveness and user experience",
-          "Integrated IIS for centralized file access across mobile and web; scaled upload capacity from 5 → 50+ files per session (used by 80+ schools)",
-          "Developed secure file workflows, metadata tagging, and API integrations",
-        ],
-      },
-      {
-        name: "BDS Dental E-Commerce Platform",
-        achievements: [
-          "Built the platform from scratch in a team of 4, contributing to scalable architecture and project structure",
-          "Used React Context to minimize API calls and enhance state management",
-          "Automated inventory branch selection via Digipin post office data",
-          "Developed dynamic promotions module and implemented upload middleware with rate limiting/validation",
-        ],
-      },
-      {
-        name: "Clove54 – Doctor Appointment App",
-        achievements: [
-          "Developed full-stack mobile app using MERN stack and Expo React Native",
-          "Built user auth (Doctor/Patient), dashboards, and REST APIs for appointments and reports",
-          "Applied clean architecture design, modular Express backend, and mobile-first API integration",
-        ],
-      },
-    ],
-  },
-]
-
-const education = [
-  {
-    institution: "National Institute of Technology Karnataka Surathkal",
-    degree: "B.Tech in Mechanical Engineering",
-    period: "2020 - 2024",
-    grade: "CGPA: 6.88",
-  },
-  {
-    institution: "Jawahar Navodaya Vidyalaya Tumkur",
-    degree: "CBSE",
-    period: "2018 - 2020",
-    grade: "XII: 93.8% | X: 94.6%",
-  },
-]
-
-const skills = {
-  "Programming Languages": ["JavaScript (ES6+)", "TypeScript", "Python", "SQL"],
-  Frontend: ["React.js", "React Native (Expo)", "Next.js", "HTML5", "CSS3", "TailwindCSS"],
-  Backend: ["Node.js", "Express.js", "Django", "REST API", "GraphQL"],
-  Databases: ["MongoDB", "MySQL", "PostgreSQL", "MariaDB", "Prisma ORM", "Redis"],
-  "DevOps / Cloud": ["Docker", "Vercel", "Render", "IIS", "AWS RDS"],
-  "Methodologies & Tools": ["Agile", "System Design", "Git", "Postman", "Jest"],
-}
-
-const certifications = [
-  {
-    name: "Data Science BootCamp",
-    issuer: "geeksforgeeks",
-    date: "Jan 2025",
-    link: "#",
-  },
-  {
-    name: "SQL (Basic) Certificate",
-    issuer: "HackerRank",
-    date: "Jan 2024",
-    link: "#",
-  },
-  {
-    name: "Google Data Analytics Foundation",
-    issuer: "Coursera",
-    date: "June 2024",
-    link: "#",
-  },
-  {
-    name: "Python for Data Science",
-    issuer: "Cognitive Class",
-    date: "Jan 2023",
-    link: "#",
-  },
-]
+import { experience, education, skills, certifications } from "@/data/about"
 
 export default function AboutPage() {
   return (
@@ -263,7 +176,7 @@ export default function AboutPage() {
                 </a>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link href="https://github.com/kbpramod" target="_blank" rel="noopener noreferrer">
+                <Link href="https://github.com/kbpramod3" target="_blank" rel="noopener noreferrer">
                   <Github className="w-4 h-4 mr-2" />
                   GitHub
                 </Link>
